@@ -24,6 +24,11 @@ const Board = ({ tasks, setTasks }) => {
           onChange={(e) => setNewStatus(e.target.value)}
           placeholder="Enter column name"
           className="border p-2 rounded"
+          onKeyDown={(e)=>{
+            if(e.key==='Enter'){
+                addColumn()
+            }
+          }}
         />
         <button onClick={addColumn} className="bg-blue-500 text-white px-4 py-2 rounded">
           Add Column

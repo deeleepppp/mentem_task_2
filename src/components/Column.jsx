@@ -35,6 +35,10 @@ const Column = ({ status, tasks, setTasks }) => {
     setForm({ id: "", title: "", status: status })
     setIsOpen(false); 
   }
+  const handleForm = (e)=>{
+         e.preventDefault()
+         console.log('hey')
+  }
 
   return (
     <div
@@ -67,6 +71,7 @@ const Column = ({ status, tasks, setTasks }) => {
             value={form.title}
             onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
             className="border p-1 w-full mb-2"
+            autoFocus
           />
           <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">
             Add

@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="flex flex-col items-center p-5 bg-gray-100 min-h-screen">
+      <div className="flex flex-col  items-center p-5 bg-gray-100 min-h-screen">
         <h1 className="text-2xl font-bold mb-5">Trello Clone</h1>
         <Board tasks={tasks} setTasks={setTasks} />
       </div>
