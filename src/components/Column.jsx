@@ -39,7 +39,7 @@ const Column = ({ status, tasks, setTasks }) => {
   return (
     <div
       ref={drop}
-      className={`w-64 p-4 border rounded-lg shadow-md bg-white ${
+      className={`bg-gray-200 w-64 p-4 border rounded-lg shadow-md ${
         isOver ? "bg-gray-200" : ""
       }`}
     >
@@ -59,9 +59,9 @@ const Column = ({ status, tasks, setTasks }) => {
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="text-white bg-green-500 hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+        className="text-[#172B4D] bg-transprent hover:bg-gray-300  focus:outline-none font-medium rounded-lg align-center text-sm px-8 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
-        {isOpen ? "Cancel" : "Add Card"}
+        {isOpen ? "Cancel" : "+Add a Card"}
       </button>
 
       {isOpen && (
