@@ -22,26 +22,20 @@ const Column = ({ status, tasks, setTasks }) => {
     );
   };
 
+  const handleDelete = (id) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.title.trim()) return; 
+    if (!form.title.trim()) return;
 
-    const newTask = {
-      ...form,
-   
-    };
-
+    const newTask = { ...form, id: Date.now().toString() }; 
     setTasks((prev) => [...prev, newTask]);
-    setForm({ id: "", title: "", status: status })
-    setIsOpen(false); 
-  }
-  const handleDelete = (id)=>{
-        setTasks(  tasks
-          .filter((e,i)=>{
-            return i !== id
-          }) )
-  }
- 
+    setForm({ id: "", title: "", status: status });
+    setIsOpen(false);
+  };
+
   return (
     <div
       ref={drop}
@@ -51,20 +45,17 @@ const Column = ({ status, tasks, setTasks }) => {
     >
       <h2 className="text-lg font-bold mb-2 capitalize">{status}</h2>
 
-      
       {Array.isArray(tasks) &&
-  tasks
-    .filter((task) => task.status === status)
-    .map((task,id) => (
-      <>
-      <Task key={task.id} id={task.id} title={task.title} />
-     
-        <button  onClick={()=>{
-            handleDelete(id)
-      }}  type="button" classname="text-white bg-red-800 h-10 w-10 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-gray-700 dark:border-gray-700 mr-2">D</button>
-          
-      </>
-    ))}
+        tasks
+          .filter((task) => task.status === status)
+          .map((task) => (
+            <Task
+              key={task.id}
+              id={task.id}
+              title={task.title}
+              handleDelete={handleDelete}
+            />
+          ))}
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -72,13 +63,16 @@ const Column = ({ status, tasks, setTasks }) => {
       >
         {isOpen ? "Cancel" : "Add Card"}
       </button>
+
       {isOpen && (
         <form onSubmit={handleSubmit} className="mb-2">
           <input
             type="text"
             placeholder="Task title"
             value={form.title}
-            onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, title: e.target.value }))
+            }
             className="border p-1 w-full mb-2"
             autoFocus
           />
@@ -87,7 +81,6 @@ const Column = ({ status, tasks, setTasks }) => {
           </button>
         </form>
       )}
-     
     </div>
   );
 };

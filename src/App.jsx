@@ -24,7 +24,7 @@ const App = () => {
       setTasks([...tasks, newTasks]);
       setNewTasks({ id: "", title: "" });
     }
-  };
+  }
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -33,7 +33,7 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       
-      <div className={`flex flex-col items-center p-5 ${dark?'bg-gray-300':'bg-gray-100'} min-h-screen w-full`}>
+      <div className={`flex flex-col items-center p-5 ${dark?'bg-[#E9F2FF]':'bg-gray-100'} min-h-screen w-full`}>
       <button onClick={()=>{
         setDark((prev)=>{
           return !prev

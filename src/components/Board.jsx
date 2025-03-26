@@ -18,8 +18,8 @@ const Board = ({ tasks, setTasks }) => {
     }
   };
 
-  const handleDelete = (id) => {
-    setStatuses(statuses.filter((_, i) => i !== id));
+  const handleDelete = (status) => {
+    setStatuses(statuses.filter((currentStatus) => currentStatus !== status));
   };
 
   useEffect(() => {
@@ -49,12 +49,12 @@ const Board = ({ tasks, setTasks }) => {
           Add Column
         </button>
       </div>
-      
-       <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-        {statuses.map((status, id) => (
+
+      <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+        {statuses.map((status) => (
           <div key={status} className="relative w-full sm:w-auto">
             <button
-              onClick={() => handleDelete(id)}
+              onClick={() => handleDelete(status)}
               className="cursor-pointer rounded-full absolute right-2 top-1 h-6 w-6 text-sm bg-black text-white"
             >
               X
@@ -63,7 +63,6 @@ const Board = ({ tasks, setTasks }) => {
           </div>
         ))}
       </div>
-      
     </div>
   );
 };

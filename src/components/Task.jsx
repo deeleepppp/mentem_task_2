@@ -1,22 +1,12 @@
 import React from "react";
-import { useDrag } from "react-dnd";
 
-const Task = ({ id, title }) => {
-  console.log(title);
-  
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "TASK",
-    item: { id },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
-  
-
+const Task = ({ id, title, handleDelete }) => {
   return (
-    <div ref={drag} className={`p-2 mb-2 border rounded-lg shadow-sm cursor-pointer bg-blue-100 ${isDragging ? "opacity-50" : ""}`}>
-      {title}
-    
+    <div className=" flex item-center mb-2 justify-between h-fit w-full bg-gray-200 px-1 py-2 rounded-lg">
+      <h3 className="font-semibold font-gilroy">{title}</h3>
+      <button onClick={() => handleDelete(id)} className="bg-red-600 text-sm text-white rounded-full h-6 w-6 ">
+        X
+      </button>
     </div>
   );
 };
