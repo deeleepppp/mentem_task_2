@@ -61,7 +61,7 @@ const Column = ({ status, tasks, setTasks }) => {
      
         <button  onClick={()=>{
             handleDelete(id)
-      }}  type="button" class="text-white bg-red-800 h-10 w-10 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-gray-700 dark:border-gray-700 mr-2">D</button>
+      }}  type="button" classname="text-white bg-red-800 h-10 w-10 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full dark:bg-red-800 dark:hover:bg-red-700 dark:focus:ring-gray-700 dark:border-gray-700 mr-2">D</button>
           
       </>
     ))}
