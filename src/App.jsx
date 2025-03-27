@@ -17,14 +17,6 @@ const App = () => {
   };
 
   const [tasks, setTasks] = useState(savedData);
-  const [newTasks, setNewTasks] = useState({ id: "", title: "" });
-
-  const addTasks = () => {
-    if (newTasks && !tasks.includes(newTasks)) {
-      setTasks([...tasks, newTasks]);
-      setNewTasks({ id: "", title: "" });
-    }
-  }
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));

@@ -53,7 +53,7 @@ const Task = ({ id, title, handleDelete, tasks, setTasks }) => {
           </button>
         </form>
       ) : (
-        <h3 className="font-bold">{title}</h3>
+        <h3 className="font-bold ">{title}</h3>
       )}
       {!isEdit&&<div className="flex">
       <button
