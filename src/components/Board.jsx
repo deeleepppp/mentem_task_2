@@ -55,9 +55,9 @@ const Board = ({ tasks, setTasks }) => {
           <div key={status} className="relative w-full sm:w-auto">
             <button
               onClick={() => handleDelete(status)}
-              className="cursor-pointer rounded-full absolute right-2 top-1 h-6 w-6 text-sm bg-black text-white"
+              className="cursor-pointer rounded-full absolute  right-2 top-1 h-6 w-6 text-sm"
             >
-              X
+              ❌
             </button>
             <Column status={status} tasks={tasks} setTasks={setTasks} />
           </div>

@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { useDrop } from "react-dnd";
+import { useDrop, useDrag } from "react-dnd";
 import Task from "./Task";
 
 const Column = ({ status, tasks, setTasks }) => {
-  const [form, setForm] = useState({ id: "", title: "", status: status });
+  const [form, setForm] = useState({ id: "", title: "", status });
   const [isOpen, setIsOpen] = useState(false);
 
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "COLUMN",
+    item: { status },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: "TASK",
+    accept: ["TASK"],
     drop: (item) => moveTask(item.id, status),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -30,42 +38,46 @@ const Column = ({ status, tasks, setTasks }) => {
     e.preventDefault();
     if (!form.title.trim()) return;
 
-    const newTask = { ...form, id: Date.now().toString() }; 
+    const newTask = { ...form, id: Date.now().toString() };
     setTasks((prev) => [...prev, newTask]);
-    setForm({ id: "", title: "", status: status });
+    setForm({ id: "", title: "", status });
     setIsOpen(false);
   };
 
   return (
     <div
-      ref={drop}
-      className={`bg-gray-200 w-64 p-4 border rounded-lg shadow-md ${
-        isOver ? "bg-gray-200" : ""
-      }`}
+      ref={(node) => drag(drop(node))} 
+      className={`bg-gray-200 w-64 p-4 rounded-lg shadow-md transition-all ${
+        isOver ? "bg-gray-300" : ""
+      } ${isDragging ? "opacity-50" : ""}`}
     >
       <h2 className="text-lg font-bold mb-2 capitalize">{status}</h2>
 
-      {Array.isArray(tasks) &&
-        tasks
-          .filter((task) => task.status === status)
-          .map((task) => (
-            <Task
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              handleDelete={handleDelete}
-            />
-          ))}
+      <div className="space-y-2">
+        {Array.isArray(tasks) &&
+          tasks
+            .filter((task) => task.status === status)
+            .map((task) => (
+              <Task
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                handleDelete={handleDelete}
+                tasks={tasks}
+                setTasks={setTasks}
+              />
+            ))}
+      </div>
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="text-[#172B4D] bg-transprent hover:bg-gray-300  focus:outline-none font-medium rounded-lg align-center text-sm px-8 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700"
+        className="text-[#172B4D] bg-transparent hover:bg-gray-300 focus:outline-none font-medium rounded-lg text-sm px-8 py-2.5 mt-2"
       >
-        {isOpen ? "Cancel" : "+Add a Card"}
+        {isOpen ? "Cancel" : "+ Add a Card"}
       </button>
 
       {isOpen && (
-        <form onSubmit={handleSubmit} className="mb-2">
+        <form onSubmit={handleSubmit} className="mt-2">
           <input
             type="text"
             placeholder="Task title"
@@ -73,10 +85,10 @@ const Column = ({ status, tasks, setTasks }) => {
             onChange={(e) =>
               setForm((prev) => ({ ...prev, title: e.target.value }))
             }
-            className="border p-1 w-full mb-2"
+            className="border p-2 w-full mb-2 rounded"
             autoFocus
           />
-          <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">
+          <button type="submit" className="bg-blue-500 text-white px-3 py-1 rounded">
             Add
           </button>
         </form>
